@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: run-profile
+
+server:
+  port: 8081
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  endpoints:
+    web:
+      exposure:
+        include: health
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd'T'HH:mm:ss.SSSXXX} %-5level [%thread] [traceId=%X{traceId:-},spanId=%X{spanId:-},runId=%X{runId:-},idempotencyKey=%X{idempotencyKey:-},targetId=%X{targetId:-}] %logger{36} - %msg%n"
+
+idempotency:
+  persistence:
+    enabled: false
+  distributed-cache:
+    enabled: false
+  local-cache:
+    enabled: false
+
+run-profile:
+  max-profile-duration: 2h
+  startup-allowance: 10m
+  collection-allowance: 5m
+  execution-timeout: 3h
+  client-retry-window: 10m
+  run-retention: 4h
+  idempotency-retention: PT3H30M
+  queue-capacity: 8
+  effective-scrape-interval: 15s
+  workloads:
+    outbox-create-order:
+      reactor-root: ${user.dir}
+      module: load-tests
+      simulation-class: com.kholodilin.outbox.loadtests.CreateOrderSimulation
+      profile: steps
+      enabled: true
+      max-failed-percent: 0.5
+      p95-ms: 200
