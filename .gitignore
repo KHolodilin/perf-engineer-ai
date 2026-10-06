@@ -22,3 +22,28 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+# Maven build output and Gatling reports
+target/
+
+# Application and module logs
+logs/
+
+# IDE
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+
+# OS
+.DS_Store
+
+# Local smoke / process leftovers
+*-smoke.out
+*-smoke.err
+*.pid
+
+# Local investigation notes and planning drafts
+/experiments
+docs/todo/
