@@ -41,7 +41,7 @@ public final class GatlingWorkloadRunner implements WorkloadRunner {
         return Observation.createNotStarted("workload.execute", observationRegistry).observe(() -> {
             Instant started = clock.instant();
             List<String> command = command(workload, profile, target);
-            log.info("Maven process started");
+            log.info("Maven process started in {} with {}", workload.reactorRoot(), String.join(" ", command));
             ProcessOutcome outcome = processRunner.run(command, workload.reactorRoot());
             Instant finished = clock.instant();
             Path gatlingDirectory = workload.reactorRoot()

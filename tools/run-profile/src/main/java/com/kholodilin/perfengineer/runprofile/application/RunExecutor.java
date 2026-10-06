@@ -112,6 +112,7 @@ public class RunExecutor {
             repository.update(run);
             log.info("Run completed");
         } catch (RuntimeException ex) {
+            log.info("Run execution failed", ex);
             RunStatus status = run.status();
             if (status == RunStatus.QUEUED || status == RunStatus.RUNNING || status == RunStatus.COLLECTING) {
                 fail(run, FailureCode.INTERNAL_ERROR, "Run execution failed");
